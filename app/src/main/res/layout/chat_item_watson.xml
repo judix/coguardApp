@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:orientation="horizontal">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="5dp"
+        android:src="@drawable/doctor" />
+
+    <LinearLayout
+        android:background="@drawable/bg_bubble_watbot"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="10dp"
+        android:autoLink="web"
+        android:fontFamily="sans-serif"
+        android:textColor="@android:color/black"
+        android:textIsSelectable="true"
+        android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            />
+
+
+
+        <Button
+            android:id="@+id/bt_gotoSource"
+            android:text="@string/gotoSource"
+            android:layout_marginTop="5dp"
+            android:drawableLeft="@drawable/ic_link_black_24dp"
+            android:paddingStart="25dp"
+            android:drawablePadding="-50dp"
+            android:background="@drawable/source_button_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>
