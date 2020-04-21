@@ -5,15 +5,17 @@
     <string name="gotoSource">Kaynağa Git</string>
 
     <string name="emoji">Senin için bu bilgiyi elimdeki \n kaynaklardan aratabilirim &#128522;</string>
+    <string name="opened">Menü Açık</string>
+
+    <string name="closed">Menü Kapalı</string>
+    <string name="action_settings">Settings</string>
+    <string name="anladim">Anladım &#128522;</string>
+    <string name="drawerOpen">drawerOpen</string>
+    <string name="drawerClose">drawerClose</string>
     <string-array name="slidemenu_item">
         <item>Anasayfa</item>
         <item>Birinci Sayfa</item>
         <item>İkinci Sayfa</item>
         <item>Üçüncü Sayfa</item>
     </string-array>
-
-    <string name="opened">Menü Açık</string>
-    <string name="closed">Menü Kapalı</string>
-    <string name="action_settings">Settings</string>
-    <string name="anladim">Anladım &#128522;</string>
 </resources>

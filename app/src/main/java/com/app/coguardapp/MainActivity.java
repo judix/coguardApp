@@ -1,8 +1,11 @@
 package com.app.coguardapp;
 
 import android.Manifest;
+import android.app.ActionBar;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
@@ -12,9 +15,12 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,17 +28,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.navigation.NavigationView;
 import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
@@ -51,6 +64,8 @@ import com.ibm.watson.assistant.v2.model.SessionResponse;
 import com.ibm.watson.speech_to_text.v1.model.RecognizeOptions;
 import com.ibm.watson.speech_to_text.v1.model.SpeechRecognitionResults;
 import com.ibm.watson.speech_to_text.v1.websocket.BaseRecognizeCallback;
+
+
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.InputStream;
@@ -58,7 +73,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
     private RecyclerView recyclerView;
@@ -83,13 +98,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ListView helpList ;
     private String[] data =
             {"Türkiye", "Almanya", "Avusturya", "Amerika","İngiltere",
-                    "Macaristan", "Yunanistan", "Rusya", "Suriye", "İran", "Irak",
-                    "Şili", "Brezilya", "Japonya", "Portekiz", "İspanya",
-                    "Makedonya", "Ukrayna", "İsviçre"};
+                    "Macaristan", "Yunanistan", "Rusya"};
 
     private ArrayList<TeyitPosts> listPosts;
 
 
+    TextView dene;
+    DrawerLayout drawerLayout;
+    Toolbar toolbarr;
+    NavigationView navigationView;
+    ActionBarDrawerToggle toggle;
+    ImageView menuOpen;
+    private Adapter adapter;
     int streak_current_user = 0;
     ImageView logo ;
     private void createServices() {
@@ -103,11 +123,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        deneme = findViewById(R.id.aDeneme);
+
+
+        menuOpen = findViewById(R.id.menuOpen);
+        menuOpen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(Gravity.LEFT);
+            }
+        });
+
+
         logo = findViewById(R.id.logomain);
         showDialog();
         listPosts = new ArrayList<>();
         mContext = getApplicationContext();
+
 
         inputMessage = findViewById(R.id.message);
         btnSend = findViewById(R.id.btn_send);
@@ -139,6 +170,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             Log.i(TAG, "Permission to record was already granted");
         }
+
 
 
 
@@ -200,18 +232,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         createServices();
         sendMessage();
         ParseWebSiteContent();
+        init();
 
-//      logo.setOnClickListener(new View.OnClickListener() {
-//          @Override
-//          public void onClick(View view) {
-//
-//              messageArrayList.clear();
-//              mAdapter.notifyDataSetChanged();
-//                Toast.makeText(getApplicationContext(),"asdassd",0).show();
-//
-//          }
-//      });
+    }
 
+
+    private void init() {
+        drawerLayout=  findViewById(R.id.drawer);
+        navigationView =  findViewById(R.id.navigation);
+        //dene.setOnClickListener(v -> inputMessage.setText("Enfekte miyim?"));
+
+
+
+
+//        navigationView.setNavigationItemSelectedListener(menuItem -> {
+//            drawerLayout.closeDrawers();
+//            menuItem.setChecked(true);
+//            switch (menuItem.getItemId()) {
+//                case R.id.q:
+//
+//                    break;
+//                // TODO - Handle other items
+//            }
+//            return true;
+//        });
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+
+            case R.id.q:
+
+            drawerLayout.closeDrawer(Gravity.LEFT);
+                break;
+        }
+
+        return false;
     }
 
 
@@ -396,19 +454,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void helpDialog (View v){
 
-
-
-        Dialog settings_dialog = new Dialog(this);
-
-        settings_dialog.setCancelable(true);
-        settings_dialog.setContentView(R.layout.help_dialog);
-        settings_dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT,WindowManager.LayoutParams.WRAP_CONTENT);
-        settings_dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        settings_dialog.show();
-
-    }
 
     private void showDialog(){
 
@@ -417,9 +463,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         settings_dialog.setContentView(R.layout.info_dialog);
         settings_dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT,WindowManager.LayoutParams.WRAP_CONTENT);
         settings_dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-
-
-
         settings_dialog.show();
 
     }
@@ -515,13 +558,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-    @Override
-    public void onClick(View view) {
-
-        //    Toast.makeText(getApplicationContext(), "wdasda", Toast.LENGTH_SHORT).show();
-        Log.i("CLICKED", "sadasdad");
-
-    }
 
 
     private class SayTask extends AsyncTask<String, Void, String> {
