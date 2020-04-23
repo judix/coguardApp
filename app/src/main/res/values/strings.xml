@@ -4,7 +4,7 @@
     <string name="menu_refresh">Yenile</string>
     <string name="gotoSource">Kaynağa Git</string>
 
-    <string name="emoji">Senin için bu bilgiyi elimdeki \n kaynaklardan aratabilirim &#128522;</string>
+    <string name="emoji">Senin için &#128522;</string>
     <string name="opened">Menü Açık</string>
 
     <string name="closed">Menü Kapalı</string>

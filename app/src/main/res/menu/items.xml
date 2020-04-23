@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+            <item android:id="@+id/esayı"
+                android:title="Enfekte sayısı nedir?"
+
+              />
+            <item android:id="@+id/ilac"
+                android:title="Corona virüsüne karşı bir ilaç veya aşı var mıdır?"
+
+                />
+            <item android:id="@+id/etki"
+                android:title="Virüs kimleri daha çok etkiliyor?"
+
+                />
+            <item android:id="@+id/ani"
+                android:title="Virüs ani ölüme neden oluyor mu?"
+
+                />
+            <item android:id="@+id/sempton"
+                android:title="Virüsün semptomları neler?"
+
+                />
+            <item android:id="@+id/evcil"
+                android:title="Virüs evcil hayvanlardan bulaşıyor mu?"
+
+                />
+            <item android:id="@+id/kargo"
+                android:title="Yurt dışından gelen kargo paketlerinden virüs geçer mi?"
+
+                />
+            <item android:id="@+id/tuzlu"
+                android:title="Tuzlu su yada sirke virüse karşı etkili mi?"
+
+                />
+            <item android:id="@+id/anti"
+                android:title="Antibiyotik virüse karşı etkili mi?"
+
+                />
+
+
+
+
+
+
+</menu>

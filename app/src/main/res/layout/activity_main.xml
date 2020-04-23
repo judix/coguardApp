@@ -26,6 +26,7 @@
 
 
 
+
     </LinearLayout>
 
     <LinearLayout
@@ -53,7 +54,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/header"
-        app:menu="@menu/menu_item" /> <!-- The items to display -->
+        app:menu="@menu/items"
+      /> <!-- The items to display -->
 
 
     <include layout="@layout/content_chat_room" />

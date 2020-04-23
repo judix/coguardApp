@@ -12,6 +12,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.opengl.Visibility;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,15 +30,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -94,24 +99,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private Assistant watsonAssistant;
     private Response<SessionResponse> watsonAssistantSession;
-    TextView deneme;
-    ListView helpList ;
-    private String[] data =
-            {"Türkiye", "Almanya", "Avusturya", "Amerika","İngiltere",
-                    "Macaristan", "Yunanistan", "Rusya"};
 
     private ArrayList<TeyitPosts> listPosts;
 
+    SharedPreferences sharedPrefs;
+    boolean answerClick;
 
-    TextView dene;
     DrawerLayout drawerLayout;
-    Toolbar toolbarr;
+    Dialog dialog;
     NavigationView navigationView;
-    ActionBarDrawerToggle toggle;
-    ImageView menuOpen;
-    private Adapter adapter;
+    ImageView menuOpen, refesh;
     int streak_current_user = 0;
     ImageView logo ;
+
+    String[] araclar={"Telefon","Laptop","Bilgisayar","Tablet","Fotoğraf Makinası","Televizyon",
+            "Buzdolabı","Çamaşır Makinası","Saat"};
     private void createServices() {
         watsonAssistant = new Assistant("2019-02-28", new IamAuthenticator(mContext.getString(R.string.assistant_apikey)));
         watsonAssistant.setServiceUrl(mContext.getString(R.string.assistant_url));
@@ -122,13 +124,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        sharedPrefs = getApplicationContext().getSharedPreferences("answer", MODE_PRIVATE);
+        answerClick = sharedPrefs.getBoolean("clicked", true);
 
 
+        drawerLayout=  findViewById(R.id.drawer);
+        navigationView =  findViewById(R.id.navigation);
+        refesh = findViewById(R.id.refreshh);
+
+        refesh.setVisibility(View.INVISIBLE);
+        refesh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                finish();
+                startActivity(getIntent());
+
+
+            }
+        });
 
         menuOpen = findViewById(R.id.menuOpen);
         menuOpen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 drawerLayout.openDrawer(Gravity.LEFT);
             }
         });
@@ -161,19 +181,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.initialRequest = true;
 
 
-        int permission = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.RECORD_AUDIO);
-
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-            Log.i(TAG, "Permission to record denied");
-            makeRequest();
-        } else {
-            Log.i(TAG, "Permission to record was already granted");
-        }
-
-
-
-
 
 
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new ClickListener() {
@@ -190,11 +197,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             @Override
             public void onLongClick(View view, int position) {
-                recordMessage();
-
-                if (messageArrayList.get(position).getMessage().contains("liderlik"))
-                    showStreakDialog();
-
 
             }
         }));
@@ -203,9 +205,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
 
+                refesh.setVisibility(View.VISIBLE);
+
                 String a = "";
                 if (a.equals(inputMessage.getText().toString()))
-                    Toast.makeText(getApplicationContext(), "ehüüüü", Toast.LENGTH_SHORT).show();
 
 
 
@@ -223,7 +226,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         btnRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recordMessage();
+                Toast.makeText(mContext, "Bu özellik çok yakında sizlerle...", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -232,104 +235,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         createServices();
         sendMessage();
         ParseWebSiteContent();
-        init();
-
     }
 
-
-    private void init() {
-        drawerLayout=  findViewById(R.id.drawer);
-        navigationView =  findViewById(R.id.navigation);
-        //dene.setOnClickListener(v -> inputMessage.setText("Enfekte miyim?"));
-
-
-
-
-//        navigationView.setNavigationItemSelectedListener(menuItem -> {
-//            drawerLayout.closeDrawers();
-//            menuItem.setChecked(true);
-//            switch (menuItem.getItemId()) {
-//                case R.id.q:
-//
-//                    break;
-//                // TODO - Handle other items
-//            }
-//            return true;
-//        });
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-        switch (item.getItemId()){
-
-            case R.id.q:
-
-            drawerLayout.closeDrawer(Gravity.LEFT);
-                break;
-        }
-
-        return false;
-    }
-
-
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.refresh:
-                finish();
-                startActivity(getIntent());
-
-        }
-        return (super.onOptionsItemSelected(item));
-    }
-
-
-    // Speech-to-Text Record Audio permission
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case REQUEST_RECORD_AUDIO_PERMISSION:
-                permissionToRecordAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                break;
-            case RECORD_REQUEST_CODE: {
-
-                if (grantResults.length == 0
-                        || grantResults[0] !=
-                        PackageManager.PERMISSION_GRANTED) {
-
-                    Log.i(TAG, "Permission has been denied by user");
-                } else {
-                    Log.i(TAG, "Permission has been granted by user");
-                }
-                return;
-            }
-
-            case MicrophoneHelper.REQUEST_PERMISSION: {
-                if (grantResults.length > 0 && grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(this, "Permission to record audio denied", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
-        // if (!permissionToRecordAccepted ) finish();
-
-    }
-
-    protected void makeRequest() {
-        ActivityCompat.requestPermissions(this,
-                new String[]{Manifest.permission.RECORD_AUDIO},
-                MicrophoneHelper.REQUEST_PERMISSION);
-    }
 
 
     // Sending a message to Watson Assistant Service
@@ -458,42 +365,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void showDialog(){
 
-        Dialog settings_dialog = new Dialog(this);
-        settings_dialog.setCancelable(true);
-        settings_dialog.setContentView(R.layout.info_dialog);
-        settings_dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT,WindowManager.LayoutParams.WRAP_CONTENT);
-        settings_dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        settings_dialog.show();
+         dialog = new Dialog(this);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.info_dialog);
+        dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT,WindowManager.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        Button button = dialog.findViewById(R.id.anladim);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences.Editor editor = sharedPrefs.edit();
+                editor.putBoolean("clicked", false);
+                editor.apply();
+                dialog.dismiss();
+            }
+        });
+
+
+        if (!answerClick){
+            dialog.dismiss();
+
+        }else{
+            dialog.show();
+        }
+
 
     }
     //Record a message via Watson Speech to Text
-    private void recordMessage() {
-        if (listening != true) {
-            capture = microphoneHelper.getInputStream(true);
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-//                        speechService.recognizeUsingWebSocket(getRecognizeOptions(capture), new MicrophoneRecognizeDelegate());
-                    } catch (Exception e) {
-                        showError(e);
-                    }
-                }
-            }).start();
-            listening = true;
-            //Toast.makeText(MainActivity.this, "Listening....Click to Stop", Toast.LENGTH_LONG).show();
 
-        } else {
-            try {
-                microphoneHelper.closeInputStream();
-                listening = false;
-                //Toast.makeText(MainActivity.this, "Stopped Listening....Click to Start", Toast.LENGTH_LONG).show();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        }
-    }
 
     /**
      * Check Internet Connection
@@ -558,6 +458,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+
+            drawerLayout.closeDrawer(GravityCompat.START);
+
+            return true;
+
+    }
 
 
     private class SayTask extends AsyncTask<String, Void, String> {
