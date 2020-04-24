@@ -14,57 +14,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:paddingTop="105dp"
         android:layout_marginBottom="50dp"
+        android:paddingTop="105dp"
         android:scrollbars="horizontal"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
-<ImageView
-    android:layout_width="40dp"
-    android:layout_height="40dp"
-    android:id="@+id/menuOpen"
-    android:src="@drawable/ic_question_answer_black_24dp"
-    android:layout_alignParentStart="true"
-    android:layout_alignParentTop="true"
-    android:layout_marginTop="15dp"
-    android:layout_marginStart="15dp"
-    />
 
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:id="@+id/refreshh"
-        android:src="@drawable/quantum_ic_refresh_white_24"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="15dp"
-        />
+
     <View
         android:id="@+id/view"
         android:layout_width="wrap_content"
         android:layout_height="1dp"
-        android:visibility="invisible"
         android:layout_alignParentBottom="true"
-        />
+        android:visibility="invisible" />
 
 
     <androidx.cardview.widget.CardView
-        android:layout_marginLeft="7dp"
+        android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/view"
+        android:layout_marginLeft="7dp"
         android:layout_marginRight="60dp"
         android:layout_marginBottom="10dp"
-        app:cardCornerRadius="25dp"
-        android:id="@+id/card"
 
-        android:layout_above="@+id/view">
-
+        app:cardCornerRadius="25dp">
 
 
         <RelativeLayout
-
 
 
             android:layout_width="match_parent"
@@ -73,18 +51,18 @@
             <EditText
                 android:id="@+id/message"
 
-                android:layout_height="45dp"
+                android:layout_width="match_parent"
 
+                android:layout_height="45dp"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="65dp"
                 android:background="@null"
-                android:paddingLeft="20dp"
 
 
                 android:hint="@string/what_s_on_your_mind"
 
 
-                android:layout_width="match_parent" />
+                android:paddingLeft="20dp" />
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btn_send"
@@ -94,9 +72,9 @@
 
                 android:layout_marginRight="5dp"
 
+                android:background="@android:color/transparent"
                 android:padding="10dp"
                 android:src="@drawable/ic_send_black_24dp"
-                android:background="@android:color/transparent"
 
 
                 />
@@ -105,23 +83,20 @@
     </androidx.cardview.widget.CardView>
 
 
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        app:fabSize="mini"
-        android:backgroundTint="@color/back"
         android:id="@+id/btn_record"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
         android:layout_above="@+id/view"
-        android:layout_marginRight="10dp"
-        android:clickable="false"
         android:layout_alignParentEnd="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="12dp"
+        android:backgroundTint="@color/back"
+        android:clickable="false"
+        android:src="@drawable/ic_mic_black_24dp"
 
 
-        android:src="@drawable/ic_mic_black_24dp" />
-
-
+        app:fabSize="mini" />
 
 
 </RelativeLayout>

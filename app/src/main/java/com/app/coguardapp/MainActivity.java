@@ -69,6 +69,10 @@ import com.ibm.watson.assistant.v2.model.SessionResponse;
 import com.ibm.watson.speech_to_text.v1.model.RecognizeOptions;
 import com.ibm.watson.speech_to_text.v1.model.SpeechRecognitionResults;
 import com.ibm.watson.speech_to_text.v1.websocket.BaseRecognizeCallback;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 
 import org.apache.commons.lang3.StringUtils;
@@ -78,7 +82,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity  {
 
 
     private RecyclerView recyclerView;
@@ -130,6 +134,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         drawerLayout=  findViewById(R.id.drawer);
         navigationView =  findViewById(R.id.navigation);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                Toast.makeText(getApplicationContext(),"" + item.getTitle(),0).show();
+
+                return false;
+            }
+        });
+
         refesh = findViewById(R.id.refreshh);
 
         refesh.setVisibility(View.INVISIBLE);
@@ -139,7 +153,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 finish();
                 startActivity(getIntent());
-
 
             }
         });
@@ -181,8 +194,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.initialRequest = true;
 
 
-
-
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new ClickListener() {
             @Override
             public void onClick(View view, final int position) {
@@ -207,14 +218,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 refesh.setVisibility(View.VISIBLE);
 
-                String a = "";
-                if (a.equals(inputMessage.getText().toString()))
 
+
+                    sendMessage();
 
 
 
                 if (checkInternetConnection()) {
-                    sendMessage();
                 }
 
             }
@@ -234,8 +244,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         createServices();
         sendMessage();
-        ParseWebSiteContent();
+        retrieveTeyit();
     }
+
 
 
 
@@ -458,15 +469,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-
-            drawerLayout.closeDrawer(GravityCompat.START);
-
-            return true;
-
-    }
 
 
     private class SayTask extends AsyncTask<String, Void, String> {
@@ -531,21 +534,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    private void ParseWebSiteContent() {
+    private void ParseWebSiteContent(String str) {
 
-        WebSiteContent webSiteContent = new WebSiteContent();
-        String content = webSiteContent.getWeb_site_content();
-        Log.i("CONTENT:", "" + content);
+        Log.i("CONTENT:", "" + str);
 
-        String[] separated = content.split("article");
+        String[] separated = str.split("article");
         Log.i("POST_COUNT", "" + separated.length);
-        Log.i("SINGLE_POST", "" + separated[5]);
+        Log.i("SINGLE_POST", "" + separated[0]);
 
         for (int i = 0; i < separated.length; i++) {
 
             String current_post = separated[i];
-            String title = StringUtils.substringBetween(current_post, "<div class=\"cb-excerpt\">", "</div>");
-            String url = StringUtils.substringBetween(current_post, "<a href=\"", "\">");
+            String title = StringUtils.substringBetween(current_post, "\">", "</a></h2>");
+            String url = StringUtils.substringBetween(current_post, "<a href=\"", "/\">");
             String image_url = StringUtils.substringBetween(current_post, "src=\"", "\" class");
 
             Log.i("POST_DETAILS", "Title: " + title + " URL: " + url + " IMAGE_URL: " + image_url);
@@ -607,6 +608,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         messageArrayList.add(outMessage);
         mAdapter.notifyDataSetChanged();
+
+
+    }
+
+    private void retrieveTeyit(){
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("cgx");
+        query.getInBackground("ogPVvyP0Wx", new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject object, ParseException e) {
+                if(e == null){
+
+                    String title = object.get("title").toString();
+                    String url = object.get("url").toString();
+                    String image_url = object.get("image_url").toString();
+
+
+                    listPosts.add(new TeyitPosts(title, url, image_url));
+
+
+
+                }
+            }
+        });
 
 
     }
