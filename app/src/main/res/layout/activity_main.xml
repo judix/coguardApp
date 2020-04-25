@@ -11,29 +11,6 @@
 
     <include layout="@layout/content_chat_room" />
 
-    <LinearLayout
-        android:weightSum="2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-
-        <ImageView
-            android:layout_weight="1"
-            android:id="@+id/menuOpen"
-            android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:layout_gravity="start"
-            android:src="@drawable/ic_question_answer_black_24dp" />
-
-        <ImageView
-            android:layout_weight="1"
-            android:id="@+id/refreshh"
-            android:layout_gravity="end"
-            android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:src="@drawable/quantum_ic_refresh_white_24" />
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -61,6 +38,7 @@
         android:layout_height="match_parent">
 
         <ImageView
+            android:id="@+id/logo"
             android:src="@drawable/coguardlogo"
             android:elevation="115dp"
             android:layout_width="150dp"
@@ -70,6 +48,35 @@
 
 
     </LinearLayout>
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+
+            android:id="@+id/menuOpen"
+            android:layout_alignParentLeft="true"
+            android:layout_width="35dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_question_answer_black_24dp" />
+
+        <ImageView
+
+            android:id="@+id/refreshh"
+            android:layout_gravity="end"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/quantum_ic_refresh_white_24" />
+
+    </RelativeLayout>
 
 
 

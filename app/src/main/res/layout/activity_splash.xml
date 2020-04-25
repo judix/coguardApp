@@ -3,16 +3,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:layout_gravity="center"
+    android:background="#FFFFFF"
     android:gravity="center"
-
-    tools:context="com.app.coguardapp.MainActivity">
+    tools:context=".SplashActivity">
 
     <ImageView
+        android:id="@+id/image1"
+        android:layout_width="300dp"
+        android:layout_height="250dp"
+        android:src="@drawable/logo"
+        />
+
+
+    <ImageView
+        android:layout_marginTop="-20dp"
+        android:id="@+id/image2"
         android:layout_width="250dp"
-        android:background="@drawable/coguardlogo"
-        android:layout_height="200dp"
+        android:layout_height="80dp"
+        android:src="@drawable/logotxt"
         />
 
 
 </LinearLayout>
+
+
+

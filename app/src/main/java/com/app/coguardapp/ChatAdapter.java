@@ -66,33 +66,33 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         Message message = messageArrayList.get(position);
 
-            if(!message.isSourced()){
+        if(!message.isSourced()){
 
-                ((ViewHolder) holder).bt_source.setVisibility(View.GONE);
+            ((ViewHolder) holder).bt_source.setVisibility(View.GONE);
 
 
 
-            }else{
+        }else{
 
-                String image_url = message.getImage_url();
-                final String source_url = message.getSource_url();
-                ((ViewHolder) holder).bt_source.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(source_url));
-                        context.startActivity(browserIntent);
-                    }
-                });
+            String image_url = message.getImage_url();
+            final String source_url = message.getSource_url();
+            ((ViewHolder) holder).bt_source.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(source_url));
+                    context.startActivity(browserIntent);
+                }
+            });
 
-                Log.i("IMAGE_URL_POST","" + image_url);
-                ImageView iv = ((ViewHolder) holder).image;
-                iv.setVisibility(View.VISIBLE);
-                Glide
-                        .with(iv.getContext())
-                        .load(image_url)
-                        .into(iv);
+            Log.i("IMAGE_URL_POST","" + image_url);
+            ImageView iv = ((ViewHolder) holder).image;
+            iv.setVisibility(View.VISIBLE);
+            Glide
+                    .with(iv.getContext())
+                    .load(image_url)
+                    .into(iv);
 
-            }
+        }
 
         switch (message.type) {
             case TEXT:

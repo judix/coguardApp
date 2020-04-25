@@ -1,27 +1,26 @@
 package com.app.coguardapp;
 
-import android.Manifest;
-import android.app.ActionBar;
-import android.app.Activity;
+
 import android.app.Dialog;
 import android.content.Context;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
+
+import android.database.DatabaseErrorHandler;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.opengl.Visibility;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
+
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,23 +29,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import android.util.Log;
-import android.view.ContextMenu;
+
 import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
+
 import android.view.MenuItem;
-import android.view.MotionEvent;
+
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
+
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -82,7 +79,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener{
 
 
     private RecyclerView recyclerView;
@@ -116,8 +113,7 @@ public class MainActivity extends AppCompatActivity  {
     int streak_current_user = 0;
     ImageView logo ;
 
-    String[] araclar={"Telefon","Laptop","Bilgisayar","Tablet","Fotoğraf Makinası","Televizyon",
-            "Buzdolabı","Çamaşır Makinası","Saat"};
+
     private void createServices() {
         watsonAssistant = new Assistant("2019-02-28", new IamAuthenticator(mContext.getString(R.string.assistant_apikey)));
         watsonAssistant.setServiceUrl(mContext.getString(R.string.assistant_url));
@@ -130,19 +126,14 @@ public class MainActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_main);
         sharedPrefs = getApplicationContext().getSharedPreferences("answer", MODE_PRIVATE);
         answerClick = sharedPrefs.getBoolean("clicked", true);
+       // sharedPrefs.edit().remove("clicked").apply();
+        Animation top = AnimationUtils.loadAnimation(this,R.anim.top);
 
 
         drawerLayout=  findViewById(R.id.drawer);
         navigationView =  findViewById(R.id.navigation);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        navigationView.setNavigationItemSelectedListener(this);
 
-                Toast.makeText(getApplicationContext(),"" + item.getTitle(),0).show();
-
-                return false;
-            }
-        });
 
         refesh = findViewById(R.id.refreshh);
 
@@ -167,7 +158,9 @@ public class MainActivity extends AppCompatActivity  {
         });
 
 
-        logo = findViewById(R.id.logomain);
+        logo = findViewById(R.id.logo);
+        logo.setAnimation(top);
+
         showDialog();
         listPosts = new ArrayList<>();
         mContext = getApplicationContext();
@@ -220,7 +213,7 @@ public class MainActivity extends AppCompatActivity  {
 
 
 
-                    sendMessage();
+                sendMessage();
 
 
 
@@ -249,6 +242,68 @@ public class MainActivity extends AppCompatActivity  {
 
 
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.esayı:
+                inputMessage.setText("Enfekte sayısı nedir");
+                break;
+            case R.id.ilac:
+                inputMessage.setText("Corona virüsüne karşı bir ilaç veya aşı var mıdır");
+                break;
+            case R.id.etki:
+                inputMessage.setText("Virüs kimleri daha çok etkiliyor");
+                break;
+            case R.id.ani:
+                inputMessage.setText("Virüs ani ölüme neden oluyor mu");
+                break;
+            case R.id.sempton:
+                inputMessage.setText("Virüsün semptomları neler");
+                break;
+            case R.id.evcil:
+                inputMessage.setText("Virüs evcil hayvanlardan bulaşıyor mu");
+                break;
+            case R.id.kargo:
+                inputMessage.setText("Yurt dışından gelen kargo paketlerinden virüs geçer mi");
+                break;
+
+            case R.id.anti:
+                inputMessage.setText("Antibiyotik virüse karşı etkili mi");
+                break;
+            case R.id.vkoru:
+                inputMessage.setText("Bağışıklık sistemimi nasıl güçlendiririm");
+                break;
+
+            case R.id.kılavuz:
+                inputMessage.setText("Sıkça kullanılan terimlerin anlamları");
+                break;
+
+            case R.id.enfekte:
+                inputMessage.setText("Enfektemiyim?");
+                break;
+            case R.id.maskek:
+                inputMessage.setText("Maske nasıl kullanılır?");
+                break;
+            case R.id.maskek1:
+                inputMessage.setText("Maske çeşiteri neler");
+                break;
+            case R.id.maskek2:
+                inputMessage.setText("Maskelerin özellikleri nedir");
+                break;
+
+            case R.id.maskek3:
+                inputMessage.setText("Maskeleri ücretsiz nasıl temin edebilirim");
+
+                break;
+            case R.id.Oyun:
+                inputMessage.setText("Oyun oynamaya ne dersin");
+                break;
+        }
+
+
+        return true;
+    }
 
     // Sending a message to Watson Assistant Service
     private void sendMessage() {
@@ -376,7 +431,7 @@ public class MainActivity extends AppCompatActivity  {
 
     private void showDialog(){
 
-         dialog = new Dialog(this);
+        dialog = new Dialog(this);
         dialog.setCancelable(true);
         dialog.setContentView(R.layout.info_dialog);
         dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT,WindowManager.LayoutParams.WRAP_CONTENT);
@@ -441,33 +496,12 @@ public class MainActivity extends AppCompatActivity  {
                 .build();
     }
 
-    private void showMicText(final String text) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                inputMessage.setText(text);
-            }
-        });
-    }
 
-    private void enableMicButton() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                btnRecord.setEnabled(true);
-            }
-        });
-    }
 
-    private void showError(final Exception e) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                e.printStackTrace();
-            }
-        });
-    }
+
+
+
+
 
 
 
@@ -484,84 +518,25 @@ public class MainActivity extends AppCompatActivity  {
         }
     }
 
-    //Watson Speech to Text Methods.
-    private class MicrophoneRecognizeDelegate extends BaseRecognizeCallback {
-        @Override
-        public void onTranscription(SpeechRecognitionResults speechResults) {
-            if (speechResults.getResults() != null && !speechResults.getResults().isEmpty()) {
-                String text = speechResults.getResults().get(0).getAlternatives().get(0).getTranscript();
-                showMicText(text);
-            }
-        }
 
-        @Override
-        public void onError(Exception e) {
-            showError(e);
-            enableMicButton();
-        }
-
-        @Override
-        public void onDisconnected() {
-            enableMicButton();
-        }
-
-    }
-
-    private void showStreakDialog() {
-        Dialog dialog = new Dialog(MainActivity.this);
-        dialog.setContentView(R.layout.layout_dialog);
+    @Override
+    public void onBackPressed() {
+        dialog = new Dialog(this);
         dialog.setCancelable(true);
-        dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setContentView(R.layout.info_dialog);
+        dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT,WindowManager.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
 
-        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-        streak_current_user = sharedPref.getInt("streak2", 1);
+            dialog.show();
 
 
-        TextView tvCurrentUserStreak = dialog.findViewById(R.id.tvCurrentUserStreak);
-        tvCurrentUserStreak.setText((900 - streak_current_user * 3) + ". Deniz Can Ilgın | " + streak_current_user);
-
-        streak_current_user++;
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt("streak2", streak_current_user);
-        editor.commit();
-
-
-        createServices();
-
-        dialog.show();
-
-    }
-
-    private void ParseWebSiteContent(String str) {
-
-        Log.i("CONTENT:", "" + str);
-
-        String[] separated = str.split("article");
-        Log.i("POST_COUNT", "" + separated.length);
-        Log.i("SINGLE_POST", "" + separated[0]);
-
-        for (int i = 0; i < separated.length; i++) {
-
-            String current_post = separated[i];
-            String title = StringUtils.substringBetween(current_post, "\">", "</a></h2>");
-            String url = StringUtils.substringBetween(current_post, "<a href=\"", "/\">");
-            String image_url = StringUtils.substringBetween(current_post, "src=\"", "\" class");
-
-            Log.i("POST_DETAILS", "Title: " + title + " URL: " + url + " IMAGE_URL: " + image_url);
-
-
-            Log.i("POST_SUB", "" + title);
-            Log.i("POST_URL", "" + url);
-            Log.i("IMAGE_URL", "" + image_url);
-
-            listPosts.add(new TeyitPosts(title, url, image_url));
-
-        }
 
 
     }
+
+
+
 
     private TeyitPosts CheckQuestionIsIncludedInTeyit(String message) {
 

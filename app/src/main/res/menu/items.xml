@@ -2,47 +2,80 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
 
+    <item
+
+        android:id="@+id/q"
+        android:title="Covid19 S.S.S &#10067;"
+        >
+        <menu>
+            <item android:id="@+id/enfekte"
+                android:title="Enfektemiyim? &#129298;"/>
 
             <item android:id="@+id/esayı"
-                android:title="Enfekte sayısı nedir?"
+                android:title="Enfekte sayısı nedir"/>
 
-              />
             <item android:id="@+id/ilac"
-                android:title="Corona virüsüne karşı bir ilaç veya aşı var mıdır?"
-
-                />
+                android:title="Corona virüsüne karşı ilaç?"/>
             <item android:id="@+id/etki"
-                android:title="Virüs kimleri daha çok etkiliyor?"
-
-                />
+                android:title="Virüs kimleri daha çok etkiliyor?"/>
             <item android:id="@+id/ani"
-                android:title="Virüs ani ölüme neden oluyor mu?"
-
-                />
+                android:title="Virüs ani ölüme neden oluyor mu?"/>
             <item android:id="@+id/sempton"
-                android:title="Virüsün semptomları neler?"
-
-                />
+                android:title="Virüsün semptomları neler?"/>
             <item android:id="@+id/evcil"
-                android:title="Virüs evcil hayvanlardan bulaşıyor mu?"
-
-                />
+                android:title="Virüs evcil hayvanlardan bulaşıyor mu?"/>
             <item android:id="@+id/kargo"
-                android:title="Yurt dışından gelen kargo paketlerinden virüs geçer mi?"
-
-                />
-            <item android:id="@+id/tuzlu"
-                android:title="Tuzlu su yada sirke virüse karşı etkili mi?"
-
-                />
+                android:title="Yurt dışından gelen kargo paketleri?"/>
             <item android:id="@+id/anti"
-                android:title="Antibiyotik virüse karşı etkili mi?"
+                android:title="Antibiyotik virüse karşı etkili mi?"/>
 
-                />
+            <item android:id="@+id/q1"
+                android:title="Virüsten nasıl korunulur?"/>
+            <item android:id="@+id/vkoru"
+                android:title="Nasıl virüsten korunurum?"/>
+            <item android:id="@+id/bagısıklık"
+                android:title="Bağışıklık sistemimi nasıl güçlendiririm?"/>
+            <item android:id="@+id/kılavuz"
+                android:title="Sıkça kullanılan terimlerin anlamları?"/>
+        </menu>
+
+
+    </item>
 
 
 
+    <item
+
+        android:id="@+id/q5"
+        android:title="Maske hakkında &#128567;"
+        >
+        <menu>
+            <item android:id="@+id/maskek"
+                android:title="Maske nasıl kullanılır?"/>
+            <item android:id="@+id/maskek1"
+                android:title="Maske çeşiteri neler"/>
+            <item android:id="@+id/maskek2"
+                android:title="Maskelerin özellikleri nedir"/>
+            <item android:id="@+id/maskek3"
+                android:title="Maskeleri ücretsiz nasıl temin edebilirim"/>
+
+        </menu>
+
+    </item>
+    <item
+
+        android:id="@+id/q6"
+        android:title="Oyunm mu? &#129300;"
+        >
+        <menu>
+            <item android:id="@+id/Oyun"
+                android:title="Oyun oynamaya ne dersin &#129321;"/>
+
+        </menu>
+
+    </item>
 
 
 
 </menu>
+

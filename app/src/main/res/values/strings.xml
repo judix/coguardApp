@@ -12,10 +12,14 @@
     <string name="anladim">Anladım &#128522;</string>
     <string name="drawerOpen">drawerOpen</string>
     <string name="drawerClose">drawerClose</string>
-    <string-array name="slidemenu_item">
-        <item>Anasayfa</item>
-        <item>Birinci Sayfa</item>
-        <item>İkinci Sayfa</item>
-        <item>Üçüncü Sayfa</item>
-    </string-array>
+
+    <string name="header">Bizim için değerlisin &#128525;</string>
+    <string name="text1">Beta sürümünden selamlar bana birşeyler öğretmesi için aileme yardım ettiğin için çok teşekkür ederim.</string>
+    <string name="text2">Eğer projenin geliştirilmesinde katkı sağlayan sağlık çalışanlarından birisiysen seni çok seviyoruz &#128536;</string>
+    <string name="text3">beta programından ayrılıkren tekrar burada olacağım ve aileme geri bildirimlerini iletmen için sana yardım edeceğim &#128522;</string>
+    <string name="text4">görüşmek üzere buralarda olacağım &#128519;</string>
+    <string name="btn_tmm">Tamamdır &#129305;</string>
+    <string name="info1">Şimdi beni daha iyi geliştirebilmesi için aileme bir geri bildirim bırakmanı rica edeceğim &#129488;</string>
+    <string name="info2">örnek metni aşağıya bıraktım bana mail adresini bırakmak istersen ebeveynlerim sana geri dönüş yapabilirler &#128523;</string>
+    <string name="info3">şimdi seni dinliyorum &#129488;</string>
 </resources>
