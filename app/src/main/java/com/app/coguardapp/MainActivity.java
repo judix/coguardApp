@@ -310,6 +310,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
         final String inputmessage = this.inputMessage.getText().toString().trim();
 
+        uploadMessage(inputmessage);
 
         if (!this.initialRequest) {
             Message inputMessage = new Message();
@@ -611,6 +612,13 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
     }
 
+    private void uploadMessage(String msg){
+
+        ParseObject message = new ParseObject("cgxMessages");
+        message.put("message",msg);
+        message.saveInBackground();
+
+    }
 
 }
 
