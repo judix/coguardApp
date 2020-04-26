@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "331725361798",
+    "firebase_url": "https://coguard-547b4.firebaseio.com",
+    "project_id": "coguard-547b4",
+    "storage_bucket": "coguard-547b4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:331725361798:android:2c6346ac9c670f71ae7707",
+        "android_client_info": {
+          "package_name": "com.app.coguardapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "331725361798-atb1mjir56iua2e38pa9o9fa2iusagno.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.coguardapp",
+            "certificate_hash": "231fcf616426ce33304f0605d5ab7b45c24f6a44"
+          }
+        },
+        {
+          "client_id": "331725361798-qlupubqgvdb201lva4n68i0q5d362p2v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFmQ6lZKEeV_WjclQxkIB6Wib5gF3-0bE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "331725361798-qlupubqgvdb201lva4n68i0q5d362p2v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
