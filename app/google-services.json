@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "331725361798",
-    "firebase_url": "https://coguard-547b4.firebaseio.com",
-    "project_id": "coguard-547b4",
-    "storage_bucket": "coguard-547b4.appspot.com"
+    "project_number": "664716419221",
+    "firebase_url": "https://coguard-388fc.firebaseio.com",
+    "project_id": "coguard-388fc",
+    "storage_bucket": "coguard-388fc.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:331725361798:android:2c6346ac9c670f71ae7707",
+        "mobilesdk_app_id": "1:664716419221:android:cff690847fec98f0f67b9c",
         "android_client_info": {
           "package_name": "com.app.coguardapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "331725361798-atb1mjir56iua2e38pa9o9fa2iusagno.apps.googleusercontent.com",
+          "client_id": "664716419221-q25eopnniqub02mbhc2cuvfcg9qrc1bs.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.app.coguardapp",
@@ -23,20 +23,20 @@
           }
         },
         {
-          "client_id": "331725361798-qlupubqgvdb201lva4n68i0q5d362p2v.apps.googleusercontent.com",
+          "client_id": "664716419221-r68q7u57g7omcnec7v2qdj9lfj4g1jlj.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCFmQ6lZKEeV_WjclQxkIB6Wib5gF3-0bE"
+          "current_key": "AIzaSyBHeBn1-UZBFJL4Tht5HPwuHcIgjfLIA-Y"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "331725361798-qlupubqgvdb201lva4n68i0q5d362p2v.apps.googleusercontent.com",
+              "client_id": "664716419221-r68q7u57g7omcnec7v2qdj9lfj4g1jlj.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

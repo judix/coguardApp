@@ -275,7 +275,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
                 break;
 
             case R.id.anti:
-                inputMessage.setText("Antibiyotik virüse karşı etkili mi");
+                inputMessage.setText("Antibiyotik kullanımı covid19 virüsüne karşı etklimi");
                 drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
             case R.id.vkoru:

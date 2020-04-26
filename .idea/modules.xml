@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Desktop-coguardApp.iml" filepath="$PROJECT_DIR$/Desktop-coguardApp.iml" group="coguardApp" />
+      <module fileurl="file://$PROJECT_DIR$/Pc-Desktop-coguardApp.iml" filepath="$PROJECT_DIR$/Pc-Desktop-coguardApp.iml" group="coguardApp" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="coguardApp/app" />
       <module fileurl="file://$PROJECT_DIR$/coguardApp.iml" filepath="$PROJECT_DIR$/coguardApp.iml" />
     </modules>

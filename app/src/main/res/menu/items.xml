@@ -27,7 +27,7 @@
             <item android:id="@+id/kargo"
                 android:title="Yurt dışından gelen kargo paketleri?"/>
             <item android:id="@+id/anti"
-                android:title="Antibiyotik virüse karşı etkili mi?"/>
+                android:title="Antibiyotik kullanımı covid19 virüsüne karşı etklimi?"/>
 
             <item android:id="@+id/q1"
                 android:title="Virüsten nasıl korunulur?"/>
