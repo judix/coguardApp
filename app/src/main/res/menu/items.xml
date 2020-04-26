@@ -65,7 +65,7 @@
     <item
 
         android:id="@+id/q6"
-        android:title="Oyunm mu? &#129300;"
+        android:title="Oyun mu? &#129300;"
         >
         <menu>
             <item android:id="@+id/Oyun"

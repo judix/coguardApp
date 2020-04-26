@@ -48,8 +48,11 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
 
+
         return new ViewHolder(itemView);
     }
+
+
 
     @Override
     public int getItemViewType(int position) {
@@ -79,7 +82,9 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ((ViewHolder) holder).bt_source.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(source_url));
+                    browserIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(browserIntent);
                 }
             });

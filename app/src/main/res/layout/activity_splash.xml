@@ -6,6 +6,7 @@
     android:orientation="vertical"
     android:layout_gravity="center"
     android:background="#FFFFFF"
+    android:id="@+id/liner"
     android:gravity="center"
     tools:context=".SplashActivity">
 

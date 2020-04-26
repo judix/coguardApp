@@ -21,13 +21,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-
+import android.text.Editable;
 import android.util.Log;
 
 import android.view.Gravity;
@@ -48,6 +49,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+
+import com.google.android.material.snackbar.Snackbar;
 import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
@@ -64,12 +67,12 @@ import com.ibm.watson.assistant.v2.model.MessageOptions;
 import com.ibm.watson.assistant.v2.model.MessageResponse;
 import com.ibm.watson.assistant.v2.model.SessionResponse;
 import com.ibm.watson.speech_to_text.v1.model.RecognizeOptions;
-import com.ibm.watson.speech_to_text.v1.model.SpeechRecognitionResults;
-import com.ibm.watson.speech_to_text.v1.websocket.BaseRecognizeCallback;
+
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.SaveCallback;
 
 
 import org.apache.commons.lang3.StringUtils;
@@ -129,7 +132,6 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
        // sharedPrefs.edit().remove("clicked").apply();
         Animation top = AnimationUtils.loadAnimation(this,R.anim.top);
 
-
         drawerLayout=  findViewById(R.id.drawer);
         navigationView =  findViewById(R.id.navigation);
         navigationView.setNavigationItemSelectedListener(this);
@@ -187,37 +189,34 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         this.initialRequest = true;
 
 
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new ClickListener() {
-            @Override
-            public void onClick(View view, final int position) {
-                Message audioMessage = (Message) messageArrayList.get(position);
+//        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new ClickListener() {
+//            @Override
+//            public void onClick(View view, final int position) {
+//                Message audioMessage = (Message) messageArrayList.get(position);
+//
+//                //if(messageArrayList.get(position).toString().contains("Evde"))
+//
+//                if (audioMessage != null && !audioMessage.getMessage().isEmpty()) {
+//                    new SayTask().execute(audioMessage.getMessage());
+//                }
+//            }
+//
+//            @Override
+//            public void onLongClick(View view, int position) {
+//
+//            }
+//        }));
 
-                //if(messageArrayList.get(position).toString().contains("Evde"))
-
-                if (audioMessage != null && !audioMessage.getMessage().isEmpty()) {
-                    new SayTask().execute(audioMessage.getMessage());
-                }
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
-        }));
 
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+
                 refesh.setVisibility(View.VISIBLE);
-
-
-
                 sendMessage();
-
-
-
                 if (checkInternetConnection()) {
+
                 }
 
             }
@@ -248,56 +247,72 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         switch (item.getItemId()){
             case R.id.esayı:
                 inputMessage.setText("Enfekte sayısı nedir");
+                drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
             case R.id.ilac:
                 inputMessage.setText("Corona virüsüne karşı bir ilaç veya aşı var mıdır");
+                drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
             case R.id.etki:
                 inputMessage.setText("Virüs kimleri daha çok etkiliyor");
+                drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
             case R.id.ani:
                 inputMessage.setText("Virüs ani ölüme neden oluyor mu");
+                drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
             case R.id.sempton:
                 inputMessage.setText("Virüsün semptomları neler");
+                drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
             case R.id.evcil:
                 inputMessage.setText("Virüs evcil hayvanlardan bulaşıyor mu");
+                drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
             case R.id.kargo:
                 inputMessage.setText("Yurt dışından gelen kargo paketlerinden virüs geçer mi");
+                drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
 
             case R.id.anti:
                 inputMessage.setText("Antibiyotik virüse karşı etkili mi");
+                drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
             case R.id.vkoru:
                 inputMessage.setText("Bağışıklık sistemimi nasıl güçlendiririm");
+                drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
 
             case R.id.kılavuz:
                 inputMessage.setText("Sıkça kullanılan terimlerin anlamları");
+                drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
 
             case R.id.enfekte:
                 inputMessage.setText("Enfektemiyim?");
+                drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
             case R.id.maskek:
                 inputMessage.setText("Maske nasıl kullanılır?");
+                drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
             case R.id.maskek1:
                 inputMessage.setText("Maske çeşiteri neler");
+                drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
             case R.id.maskek2:
                 inputMessage.setText("Maskelerin özellikleri nedir");
+                drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
 
             case R.id.maskek3:
                 inputMessage.setText("Maskeleri ücretsiz nasıl temin edebilirim");
 
+                drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
             case R.id.Oyun:
                 inputMessage.setText("Oyun oynamaya ne dersin");
+                drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
         }
 
@@ -480,7 +495,31 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         if (isConnected) {
             return true;
         } else {
-            Toast.makeText(this, " No Internet Connection available ", Toast.LENGTH_LONG).show();
+
+            View view = findViewById(R.id.drawer);
+            Snackbar snackbar = Snackbar.make(view,"Bağlantınızı kontrol edin",Snackbar.LENGTH_LONG);
+
+                snackbar.setDuration(10000);
+
+
+                snackbar.setAction("Tekrar dene", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                      if (checkInternetConnection()){
+                          snackbar.dismiss();
+                      }else
+                          snackbar.show();
+                    }
+                });
+                //Eklediğimiz action'ın text rengini değiştirebiliriz
+                snackbar.setActionTextColor(getResources().getColor(android.R.color.black));
+
+                //Arkaplan rengini değiştirme
+                snackbar.getView().setBackgroundColor(getResources().getColor(R.color.color));
+                snackbar.show();
+
+
+
             return false;
         }
 
@@ -524,9 +563,18 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
     public void onBackPressed() {
         dialog = new Dialog(this);
         dialog.setCancelable(true);
-        dialog.setContentView(R.layout.info_dialog);
+        dialog.setContentView(R.layout.feedback);
         dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT,WindowManager.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        Button okey = dialog.findViewById(R.id.anladim);
+        EditText editText = dialog.findViewById(R.id.feed);
+
+        okey.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                collectFB(editText.getText().toString());
+            }
+        });
 
 
             dialog.show();
@@ -535,7 +583,26 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
 
     }
+    private void collectFB(String str){
 
+        ParseObject message = new ParseObject("cgxMessages");
+        message.put("message",str);
+        message.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e == null){
+                    Toast.makeText(MainActivity.this, "gönderildi", Toast.LENGTH_SHORT).show();
+                    //Save Done
+
+                }else{
+
+                    Toast.makeText(MainActivity.this, "hata: " + e, Toast.LENGTH_SHORT).show();
+                    //Error Occured
+                }
+            }
+        });
+
+    }
 
 
 
@@ -543,9 +610,6 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
         TeyitPosts isIncluded = null;
 
-        int comp_result = 0;
-        String[] eachWord = new String[0];
-        Boolean IncludedAtTeyit = false;
 
         for (TeyitPosts post : listPosts) {
             String title = post.getTitle();
