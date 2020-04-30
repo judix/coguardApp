@@ -569,6 +569,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         Button okey = dialog.findViewById(R.id.anladim);
         EditText editText = dialog.findViewById(R.id.feed);
 
+
         okey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -577,7 +578,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         });
 
 
-            dialog.show();
+        dialog.show();
 
 
 
@@ -591,8 +592,31 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
             @Override
             public void done(ParseException e) {
                 if(e == null){
-                    Toast.makeText(MainActivity.this, "gönderildi", Toast.LENGTH_SHORT).show();
-                    //Save Done
+
+                    dialog.dismiss();
+                    View view = findViewById(R.id.drawer);
+                    Snackbar snackbar = Snackbar.make(view,"İlginiz için teşekkür ederiz ",Snackbar.LENGTH_LONG);
+
+
+
+                    snackbar.setAction("Çıkış yap", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            android.os.Process.killProcess(android.os.Process.myPid());
+                            System.exit(1);
+
+                            //if you want to finish just current activity
+
+                            MainActivity.this.finish();
+
+                        }
+                    });
+                    //Eklediğimiz action'ın text rengini değiştirebiliriz
+                    snackbar.setActionTextColor(getResources().getColor(android.R.color.black));
+
+                    //Arkaplan rengini değiştirme
+                    snackbar.getView().setBackgroundColor(getResources().getColor(R.color.color));
+                    snackbar.show();
 
                 }else{
 

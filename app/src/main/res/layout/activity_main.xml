@@ -74,7 +74,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginRight="15dp"
             android:layout_alignParentRight="true"
-            android:src="@drawable/quantum_ic_refresh_white_24" />
+            android:src="@drawable/ic_autorenew_black_24dp" />
 
     </RelativeLayout>
 

@@ -112,7 +112,7 @@
                 android:textStyle="bold"
                 android:textColor="@android:color/white"
                 android:textSize="15dp"
-                android:text="Postala &#12823;" />
+                android:text="Postala &#128522;" />
 
 
             </LinearLayout>
